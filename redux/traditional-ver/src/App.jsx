@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import './style.css';
-import { legacy_createStore as createStore } from 'redux';
-
 import { Provider, useSelector, useDispatch, connect } from 'react-redux';
+import { legacy_createStore as createStore } from 'redux';
 // react-redux의 4인방:
 // Provider(컴포넌트): state를 어떤 component들에게 제공할 것인가에 대한 가장 바깥쪽 울타리(props로 store 필수)
 // useSelector(어떤 state 값을 사용할 지 선택)
 // useDispath(state 값을 변경시킬 때 사용)
 
-// reducer는 state를 바꾸는 방법에 관한 정의 함수 이다.
+// reducer는 state를 바꾸는 방법을 명시한 함수 이다.
+// 인자로 state와 action을 전달받으며, dispatch에 의해 호출된다.
 function reducer(currentState, action) {
-  // plus(button)라는 액션
+  // 후에 plus(button)라는 액션전달 받은
   if (currentState === undefined) {
     return {
       number: 1,
@@ -23,8 +23,6 @@ function reducer(currentState, action) {
   }
   return newState;
 }
-
-const store = createStore(reducer);
 
 export default function App() {
   const [number, setNumber] = useState(1);
@@ -40,6 +38,9 @@ export default function App() {
     </div>
   );
 }
+
+const store = createStore(reducer); // reducer를 store에 등록한다.
+
 function Left1(props) {
   return (
     <div>
@@ -59,19 +60,20 @@ function Left2(props) {
 }
 function Left3(props) {
   console.log('3');
-  // number 값을 가장 하위 컴포넌트 left3 에서 받기 위해 useSelector 사용
-  // useSelector는 함수를 인자로 받음
+  // number(상태값)을 가장 하위 컴포넌트 left3 에서 받기 위해 useSelector 사용
+  // useSelector는 "함수"를 인자로 받음
 
-  const number = useSelector((state) => state.number);
+  const value = useSelector((state) => state.number);
+  // state.number를 뱉어낸다.
   // 아래와 같은 내용
   // function f(state) {
   //   return state.number;
   // }
-  // const number = useSelector(f);
+  // const value = useSelector(f);
 
   return (
     <div>
-      <h1>Left3: {number} </h1>
+      <h1>Left3: {value} </h1>
     </div>
   );
 }

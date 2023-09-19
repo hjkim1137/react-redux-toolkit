@@ -1,38 +1,42 @@
 import React from 'react';
 import './style.css';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// createSlice를 사용하여 슬라이스를 정의합니다.
+// 슬라이스(slice) 정의
 const counterSlice = createSlice({
   name: 'counter',
-  initialState: { value: 1 }, // 초기 상태를 설정합니다.
+  initialState: {
+    value: 1,
+  },
   reducers: {
     increment: (state) => {
-      state.value++;
+      state.value += 1;
     },
   },
 });
 
-// configureStore를 사용하여 Redux 스토어를 생성합니다.
-const store = configureStore({
-  reducer: counterSlice.reducer,
-});
+// 슬라이스의 액션과 리듀서 추출
+const { actions, reducer } = counterSlice;
 
-// increment 액션 생성자를 가져옵니다.
-const { increment } = counterSlice.actions;
+// 스토어 생성
+const store = configureStore({
+  reducer: {
+    counter: reducer,
+  },
+});
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <div id="container">
-        <h1>Root</h1>
-        <div id="grid">
+    <div id="container">
+      <h1>Root</h1>
+      <div id="grid">
+        <Provider store={store}>
           <Left1 />
           <Right1 />
-        </div>
+        </Provider>
       </div>
-    </Provider>
+    </div>
   );
 }
 
@@ -49,7 +53,7 @@ function Left2() {
   console.log('2');
   return (
     <div>
-      <h1>Left2 : </h1>
+      <h1>Left2</h1>
       <Left3 />
     </div>
   );
@@ -57,12 +61,11 @@ function Left2() {
 
 function Left3() {
   console.log('3');
-  // useSelector를 사용하여 상태에 접근합니다.
-  const number = useSelector((state) => state.counter.value);
+  const value = useSelector((state) => state.counter.value);
 
   return (
     <div>
-      <h1>Left3: {number}</h1>
+      <h1>Left3: {value}</h1>
     </div>
   );
 }
@@ -95,9 +98,9 @@ function Right3() {
         type="button"
         value="+"
         onClick={() => {
-          dispatch(increment()); // "+" 버튼 클릭 시 액션을 디스패치합니다.
+          dispatch(actions.increment());
         }}
-      ></input>
+      />
     </div>
   );
 }
