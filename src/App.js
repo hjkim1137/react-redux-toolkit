@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './style.css';
-import { createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 
 import { Provider, useSelector, useDispatch, connect } from 'react-redux';
 // react-redux의 4인방:
