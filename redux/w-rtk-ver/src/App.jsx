@@ -4,6 +4,7 @@ import { Provider, useSelector, useDispatch } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 // 슬라이스(slice) 정의
+// initialState와 reducer를 묶는다
 const counterSlice = createSlice({
   name: 'counter',
   initialState: {
@@ -91,6 +92,7 @@ function Right2() {
 function Right3() {
   const dispatch = useDispatch();
 
+  // action은 type은 반드시 있어야 하나, payload는 선택값
   return (
     <div>
       <h1>Right3</h1>
