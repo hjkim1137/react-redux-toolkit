@@ -9,9 +9,10 @@ function Counter() {
   // 액션을 전송하는 dispatch, 액션이 있는 곳에서 사용
   const dispatch = useDispatch();
 
-  // useSelector는 함수를 인자로 받음
-  // dispatch는 액션을 받음(actiond은 필수, payload는 옵션)
+  // useSelector는 store에서 state 갖다 쓸때 필요함. 함수를 인자로 받음
+  // dispatch는 액션을 받음(action은 필수, payload는 옵션)
   const count = useSelector((state) => state.counter.value);
+
   return (
     <div>
       <button
