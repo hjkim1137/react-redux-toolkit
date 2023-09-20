@@ -7,10 +7,12 @@ const counterSlice = createSlice({
   initialState: { value: 0 },
   reducers: {
     up: (state, action) => {
+      console.log('action', action); // payload, type으로 구성
       state.value = state.value + action.payload;
     },
   },
 });
+console.log('counterSlice', counterSlice);
 
 export default counterSlice;
 export const { up } = counterSlice.actions;
