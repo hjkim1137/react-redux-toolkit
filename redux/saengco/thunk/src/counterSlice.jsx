@@ -36,6 +36,8 @@ const counterSlice = createSlice({
     });
   },
 });
+console.log('actions', counterSlice.actions);
+
 export default counterSlice;
-export const { up, set } = counterSlice.actions;
+export const { up } = counterSlice.actions;
 export { asyncUpFetch };
